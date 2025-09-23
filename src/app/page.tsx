@@ -3,7 +3,7 @@ export default function Home() {
     <div className="bg-gray-900 min-h-screen flex flex-col items-center text-gray-200">
       <div className="mt-5 flex flex-col items-center flex-grow justify-center">
         <h1 className="font-sans text-4xl">Welcome to</h1>
-        <h1 className="font-mono text-emerald-600 text-4xl mb-10">Splitter</h1>
+        <h1 className="font-mono text-emerald-600 text-4xl mb-10">Splitty</h1>
         <p className="font-sans text-2xl text-center mb-10">
           A simple solution for large groups wanting to manage bill splitting.
           <br />
