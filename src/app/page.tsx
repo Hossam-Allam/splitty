@@ -13,14 +13,7 @@ export default function Home() {
           Enter your items and their prices. <br />
           Check the total and YOUR total.
         </p>
-        <button
-          className="px-2 py-1 rounded-lg bg-teal-900 text-white font-medium
-                 hover:bg-teal-950 focus:outline-none focus:ring-2
-                 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-950
-                 transition-colors duration-200"
-        >
-          Get Started!
-        </button>
+        <button className="button">Get Started!</button>
       </div>
     </div>
   );
