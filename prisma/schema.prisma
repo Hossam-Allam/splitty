@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:app.db"
+}
+
+model Bill {
+  id           Int           @id @default(autoincrement())
+  title        String
+  code         String        @unique                      // unique join code
+  createdBy    String                                  // clerk user id of creator
+  participants Participant[]                           // users who joined
+  items        Item[]                                     // items in the bill
+  total        Float?        @default(0)                
+  isSettled    Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Participant {
+  id         Int       @id @default(autoincrement())
+  billId     Int
+  userId     String                                     // clerk user id
+  displayName String?                                  
+  joinedAt   DateTime   @default(now())
+
+  bill       Bill      @relation(fields: [billId], references: [id])
+  items      Item[]                                     // items ordered by this participant
+
+  // prevent same clerk user joining same bill twice
+  @@unique([billId, userId])
+  @@index([userId])
+}
+
+model Item {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  price              Float
+  billId             Int
+  orderedByParticipantId Int                            
+  notes              String?
+  createdAt          DateTime  @default(now())
+
+  bill               Bill      @relation(fields: [billId], references: [id])
+  orderedBy          Participant? @relation(fields: [orderedByParticipantId], references: [id])
+}
