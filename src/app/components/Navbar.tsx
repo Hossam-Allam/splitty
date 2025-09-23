@@ -1,7 +1,7 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 export const Navbar = () => {
   return (
-    <div className="bg-gray-950 text-gray-200 p-4 flex justify-between">
+    <div className="bg-gradient-to-b from-gray-950 to-gray-900 border-b-1 border-white text-gray-200 p-4 flex justify-between">
       <h1 className="font-mono text-2xl">Splitter</h1>
       <div className="flex justify-center items-center gap-2">
         <SignedOut>
