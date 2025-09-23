@@ -21,8 +21,8 @@
 
 body {
   background: #101828;
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-family: sans-serif, Arial, Helvetica;
 }
 
 @layer components{
