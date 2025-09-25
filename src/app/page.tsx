@@ -14,7 +14,7 @@ export default function Home() {
           Enter your items and their prices. <br />
           Check the total and YOUR total.
         </p>
-        <Link href="/main">
+        <Link href="/bills">
           <button className="button">Get Started!</button>
         </Link>
       </div>
