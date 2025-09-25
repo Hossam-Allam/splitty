@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { getUserBills, deleteBill } from "@/prisma-db";
-
+import { getUserBills } from "@/prisma-db";
+import { deleteBill } from "./actions";
+import { DeleteButton } from "../components/deleteButton";
 export default async function Bills() {
   const user = await currentUser();
 
@@ -35,12 +36,7 @@ export default async function Bills() {
                       Code: {bill.code} | Items: {bill.items.length}
                     </p>
                   </div>
-                  <button
-                    className="bg-rose-400 p-3 rounded-2xl hover:bg-rose-500"
-                    onClick={() => deleteBill(bill.id)}
-                  >
-                    Delete
-                  </button>
+                  <DeleteButton id={bill.id} deleteFunction={deleteBill} />
                 </div>
               </li>
             ))}

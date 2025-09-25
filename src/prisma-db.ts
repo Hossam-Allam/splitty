@@ -15,7 +15,7 @@ const seed = async () => {
     }
 }
 
-//seed();
+seed();
 
 export async function getUserBills(userId: string) {
   try {
