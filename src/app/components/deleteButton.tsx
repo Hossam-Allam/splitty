@@ -9,7 +9,7 @@ export const DeleteButton = ({
 }) => {
   return (
     <button
-      className="bg-rose-400 p-3 rounded-2xl hover:bg-rose-500"
+      className="bg-pink-900 p-3 rounded-2xl hover:bg-pink-700"
       onClick={() => deleteFunction(id)}
     >
       Delete
