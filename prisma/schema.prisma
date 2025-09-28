@@ -31,7 +31,7 @@ model Participant {
   displayName String?                                  
   joinedAt   DateTime   @default(now())
 
-  bill       Bill      @relation(fields: [billId], references: [id])
+  bill       Bill      @relation(fields: [billId], references: [id], onDelete: Cascade)
   items      Item[]                                     // items ordered by this participant
 
   // prevent same clerk user joining same bill twice
@@ -48,6 +48,6 @@ model Item {
   notes              String?
   createdAt          DateTime  @default(now())
 
-  bill               Bill      @relation(fields: [billId], references: [id])
+  bill               Bill      @relation(fields: [billId], references: [id], onDelete: Cascade)
   orderedBy          Participant? @relation(fields: [orderedByParticipantId], references: [id])
 }
