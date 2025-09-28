@@ -1,4 +1,5 @@
 import { PrismaClient } from "./generated/prisma";
+import { randomBytes } from "crypto";
 
 const prisma = new PrismaClient();
 
@@ -66,4 +67,42 @@ export async function getUserBills(userId: string) {
 
 export async function deleteBill(id: number) {
     return prisma.bill.delete({where: {id}})
+}
+
+export async function createBill({
+  title,
+  createdBy,
+  displayName,
+}: {
+  title: string;
+  createdBy: string; // Clerk userId
+  displayName: string; // So you can show the name in participants
+}) {
+  try {
+    // Generate a short unique code (6 chars)
+    const joinCode = randomBytes(3).toString("hex").toUpperCase();
+
+    const bill = await prisma.bill.create({
+      data: {
+        title,
+        createdBy,
+        code: joinCode,
+        participants: {
+          create: {
+            userId: createdBy,
+            displayName,
+          },
+        },
+      },
+      include: {
+        participants: true,
+        items: true,
+      },
+    });
+
+    return bill;
+  } catch (error) {
+    console.error("Error creating bill:", error);
+    throw error;
+  }
 }
