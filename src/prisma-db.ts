@@ -76,7 +76,7 @@ export async function createBill({
 }: {
   title: string;
   createdBy: string; // Clerk userId
-  displayName: string; // So you can show the name in participants
+  displayName: string; 
 }) {
   try {
     // Generate a short unique code (6 chars)

@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserBills } from "@/prisma-db";
-import { deleteBill } from "./actions";
+import { deleteBill, createBill } from "./actions";
 import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
 export default async function Bills() {
@@ -25,7 +25,11 @@ export default async function Bills() {
         <div>
           <div className="flex flex-row justify-between items-start">
             <h1 className="text-2xl font-semibold mb-4">Your Bills</h1>
-            <AddButton />
+            <AddButton
+              createdBy={user.id}
+              displayName={user.fullName ?? "Anonymous"}
+              createFunction={createBill}
+            />
           </div>
           <ul className="space-y-3">
             {bills.map((bill) => (
