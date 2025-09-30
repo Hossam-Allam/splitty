@@ -3,6 +3,7 @@ import { getUserBills } from "@/prisma-db";
 import { deleteBill, createBill } from "./actions";
 import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
+import { JoinButton } from "../components/joinButton";
 export default async function Bills() {
   const user = await currentUser();
 
@@ -25,11 +26,14 @@ export default async function Bills() {
         <div>
           <div className="flex flex-row justify-between items-start">
             <h1 className="text-2xl font-semibold mb-4">Your Bills</h1>
-            <AddButton
-              createdBy={user.id}
-              displayName={user.fullName ?? "Anonymous"}
-              createFunction={createBill}
-            />
+            <div className="flex flex-row gap-3">
+              <AddButton
+                createdBy={user.id}
+                displayName={user.fullName ?? "Anonymous"}
+                createFunction={createBill}
+              />
+              <JoinButton />
+            </div>
           </div>
           <ul className="space-y-3">
             {bills.map((bill) => (
