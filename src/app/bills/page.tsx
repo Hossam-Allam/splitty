@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserBills } from "@/prisma-db";
-import { deleteBill, createBill } from "./actions";
+import { deleteBill, createBill, addParticipantToBill } from "./actions";
 import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
 import { JoinButton } from "../components/joinButton";
@@ -32,7 +32,11 @@ export default async function Bills() {
                 displayName={user.fullName ?? "Anonymous"}
                 createFunction={createBill}
               />
-              <JoinButton />
+              <JoinButton
+                userId={user.id}
+                displayName={user.fullName ?? "Anonymous"}
+                joinFunction={addParticipantToBill}
+              />
             </div>
           </div>
           <ul className="space-y-3">
@@ -55,9 +59,26 @@ export default async function Bills() {
           </ul>
         </div>
       ) : (
-        <h1 className="text-xl font-semibold text-center">
-          You don’t have any bills yet. Create one!
-        </h1>
+        <div>
+          <div className="flex flex-row justify-between items-start">
+            <h1 className="text-2xl font-semibold mb-4">No bills yet</h1>
+            <div className="flex flex-row gap-3">
+              <AddButton
+                createdBy={user.id}
+                displayName={user.fullName ?? "Anonymous"}
+                createFunction={createBill}
+              />
+              <JoinButton
+                userId={user.id}
+                displayName={user.fullName ?? "Anonymous"}
+                joinFunction={addParticipantToBill}
+              />
+            </div>
+          </div>
+          <h1 className="text-xl font-semibold text-center">
+            You don’t have any bills yet. Create one!
+          </h1>
+        </div>
       )}
     </div>
   );
