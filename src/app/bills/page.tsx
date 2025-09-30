@@ -1,10 +1,16 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserBills } from "@/prisma-db";
-import { deleteBill, createBill, addParticipantToBill } from "./actions";
+import {
+  deleteBill,
+  createBill,
+  addParticipantToBill,
+  leaveBill,
+} from "./actions";
 import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
 import { JoinButton } from "../components/joinButton";
 import { LeaveButton } from "../components/leaveButton";
+
 export default async function Bills() {
   const user = await currentUser();
 
@@ -60,7 +66,11 @@ export default async function Bills() {
                       <DeleteButton id={bill.id} deleteFunction={deleteBill} />
                     ) : (
                       // User is only a participant
-                      <LeaveButton />
+                      <LeaveButton
+                        billCode={bill.code}
+                        userId={user.id}
+                        leaveFunction={leaveBill}
+                      />
                     )}
                   </div>
                 </div>
