@@ -49,5 +49,5 @@ model Item {
   createdAt          DateTime  @default(now())
 
   bill               Bill      @relation(fields: [billId], references: [id], onDelete: Cascade)
-  orderedBy          Participant? @relation(fields: [orderedByParticipantId], references: [id])
+  orderedBy          Participant? @relation(fields: [orderedByParticipantId], references: [id], onDelete: Cascade)
 }
