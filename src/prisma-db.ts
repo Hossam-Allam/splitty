@@ -153,3 +153,33 @@ export async function addParticipantToBill({
     throw error;
   }
 }
+
+
+export async function leaveBill({
+  billCode,
+  userId,
+}: {
+  billCode: string;
+  userId: string;
+}) {
+  try {
+    const bill = await prisma.bill.findUnique({
+      where: { code: billCode },
+      include: { participants: true },
+    });
+
+    if (!bill) throw new Error("Bill not found");
+
+    const participant = bill.participants.find((p) => p.userId === userId);
+    if (!participant) throw new Error("Participant not found in this bill");
+
+    await prisma.participant.delete({
+      where: { id: participant.id },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error leaving bill:", error);
+    throw error;
+  }
+}
