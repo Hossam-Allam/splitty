@@ -106,3 +106,50 @@ export async function createBill({
     throw error;
   }
 }
+
+export async function addParticipantToBill({
+  billCode,
+  userId,
+  displayName,
+}: {
+  billCode: string;
+  userId: string;
+  displayName: string;
+}) {
+  try {
+    // Find the bill by its join code
+    const bill = await prisma.bill.findUnique({
+      where: { code: billCode },
+    });
+
+    if (!bill) {
+      throw new Error("Bill not found");
+    }
+
+    // Check if this user is already a participant
+    const existing = await prisma.participant.findFirst({
+      where: {
+        billId: bill.id,
+        userId,
+      },
+    });
+
+    if (existing) {
+      return existing; 
+    }
+
+    
+    const participant = await prisma.participant.create({
+      data: {
+        billId: bill.id,
+        userId,
+        displayName,
+      },
+    });
+
+    return participant;
+  } catch (error) {
+    console.error("Error adding participant to bill:", error);
+    throw error;
+  }
+}
