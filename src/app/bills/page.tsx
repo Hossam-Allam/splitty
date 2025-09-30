@@ -4,6 +4,7 @@ import { deleteBill, createBill, addParticipantToBill } from "./actions";
 import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
 import { JoinButton } from "../components/joinButton";
+import { LeaveButton } from "../components/leaveButton";
 export default async function Bills() {
   const user = await currentUser();
 
@@ -52,7 +53,16 @@ export default async function Bills() {
                       Code: {bill.code} | Items: {bill.items.length}
                     </p>
                   </div>
-                  <DeleteButton id={bill.id} deleteFunction={deleteBill} />
+
+                  <div className="flex flex-row gap-2">
+                    {bill.createdBy === user.id ? (
+                      // User is the creator
+                      <DeleteButton id={bill.id} deleteFunction={deleteBill} />
+                    ) : (
+                      // User is only a participant
+                      <LeaveButton />
+                    )}
+                  </div>
                 </div>
               </li>
             ))}
