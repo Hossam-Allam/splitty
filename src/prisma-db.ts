@@ -1,6 +1,6 @@
 import { PrismaClient } from "./generated/prisma";
 import { randomBytes } from "crypto";
-
+import { CreateItemArgs } from "./app/bills/actions";
 const prisma = new PrismaClient();
 
 
@@ -225,13 +225,7 @@ export async function createItemForBillCode({
   name,
   price,
   notes,
-}: {
-  billCode: string;
-  userId: string;
-  name: string;
-  price: number;
-  notes?: string;
-}) {
+}: CreateItemArgs) {
   try {
     // 1. Find the bill by code
     const bill = await prisma.bill.findUnique({

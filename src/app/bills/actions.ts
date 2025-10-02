@@ -17,6 +17,14 @@ export type LeaveBillArgs = {
   userId: string;
 };
 
+export type CreateItemArgs = {
+  billCode: string;
+  userId: string;   
+  name: string;
+  price: number;
+  notes?: string;
+};
+
 export async function deleteBill(id: number) {
   await deleteBillFromDb(id);
 }
