@@ -32,4 +32,8 @@ body {
                  focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-950
                  transition-colors duration-200
   }
+
+  .page-header {
+    @apply text-2xl font-semibold mb-4
+  }
 }

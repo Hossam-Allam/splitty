@@ -33,7 +33,7 @@ export default async function Bills() {
       {bills.length > 0 ? (
         <div>
           <div className="flex flex-row justify-between items-start">
-            <h1 className="text-2xl font-semibold mb-4">Your Bills</h1>
+            <h1 className="page-header">Your Bills</h1>
             <div className="flex flex-row gap-3">
               <AddButton
                 createdBy={user.id}
