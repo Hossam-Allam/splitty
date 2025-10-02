@@ -10,6 +10,7 @@ import { DeleteButton } from "../components/deleteButton";
 import { AddButton } from "../components/addButton";
 import { JoinButton } from "../components/joinButton";
 import { LeaveButton } from "../components/leaveButton";
+import Link from "next/link";
 
 export default async function Bills() {
   const user = await currentUser();
@@ -53,13 +54,14 @@ export default async function Bills() {
                 className="p-4 bg-gray-800 rounded-lg shadow hover:bg-gray-700 transition-colors"
               >
                 <div className="flex flex-row justify-between">
-                  <div>
-                    <h2 className="text-lg font-medium">{bill.title}</h2>
-                    <p className="text-sm text-gray-400">
-                      Code: {bill.code} | Items: {bill.items.length}
-                    </p>
-                  </div>
-
+                  <Link href={`/bills/${bill.code}`}>
+                    <div className="bg-gray-600 px-2 py-1 rounded-lg hover:bg-gray-800">
+                      <h2 className="text-lg font-medium">{bill.title}</h2>
+                      <p className="text-sm text-gray-400">
+                        Code: {bill.code} | Items: {bill.items.length}
+                      </p>
+                    </div>
+                  </Link>
                   <div className="flex flex-row gap-2">
                     {bill.createdBy === user.id ? (
                       // User is the creator
