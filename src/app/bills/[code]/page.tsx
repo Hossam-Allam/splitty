@@ -1,5 +1,5 @@
 import { getBillByCode } from "@/prisma-db";
-
+import { AddItemButton } from "@/app/components/addItemButton";
 export default async function Bill({
   params,
 }: {
@@ -12,7 +12,10 @@ export default async function Bill({
 
   return (
     <div className="p-6">
-      <h1 className="page-header">{bill.title}</h1>
+      <div className="flex flex-row justify-between items-start">
+        <h1 className="page-header">{bill.title}</h1>
+        <AddItemButton />
+      </div>
     </div>
   );
 }
