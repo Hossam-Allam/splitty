@@ -4,19 +4,19 @@ import { CreateItemArgs } from "./app/bills/actions";
 const prisma = new PrismaClient();
 
 
-const seed = async () => {
-    const count = await prisma.bill.count();
+// const seed = async () => {
+//     const count = await prisma.bill.count();
 
-    if(count ===0){
-        await prisma.bill.createMany({
-            data: [
-                {title: "First Bill", code: "25hx", createdBy: "user_32z8c6fdIGzJ5mPGGIBqvULn7Vy"}
-            ]
-        })
-    }
-}
+//     if(count ===0){
+//         await prisma.bill.createMany({
+//             data: [
+//                 {title: "First Bill", code: "25hx", createdBy: "user_32z8c6fdIGzJ5mPGGIBqvULn7Vy"}
+//             ]
+//         })
+//     }
+// }
 
-seed();
+//seed();
 
 export async function getUserBills(userId: string) {
   try {
