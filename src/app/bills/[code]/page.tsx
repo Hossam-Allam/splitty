@@ -3,7 +3,7 @@ import { AddItemButton } from "@/app/components/addItemButton";
 import { currentUser } from "@clerk/nextjs/server";
 import { createItemForBillCode } from "../actions";
 import { ItemCard } from "@/app/components/itemCard";
-
+import { BillTotalsCard } from "@/app/components/totalCard";
 export default async function Bill({
   params,
 }: {
@@ -13,6 +13,7 @@ export default async function Bill({
   const bill = await getBillByCode(code);
   console.log(bill?.total);
   const user = await currentUser();
+  const currentTotal = bill?.items.reduce((sum, item) => sum + item.price, 0);
 
   if (!bill) return <h1>No bill found</h1>;
 
@@ -40,6 +41,11 @@ export default async function Bill({
           />
         ))}
       </div>
+
+      <BillTotalsCard
+        realTotal={bill.total ?? 0}
+        currentTotal={currentTotal ?? 0}
+      />
     </div>
   );
 }
