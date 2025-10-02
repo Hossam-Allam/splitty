@@ -183,3 +183,39 @@ export async function leaveBill({
     throw error;
   }
 }
+
+export async function getBillByCode(code: string) {
+  try {
+    const bill = await prisma.bill.findUnique({
+      where: { code },
+      include: {
+        participants: {
+          select: {
+            id: true,
+            userId: true,
+            displayName: true,
+          },
+        },
+        items: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            orderedBy: {
+              select: {
+                userId: true,
+                displayName: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return bill; // null if not found
+  } catch (error) {
+    console.error("Error retrieving bill by code:", error);
+    throw error;
+  }
+}
+
