@@ -219,3 +219,55 @@ export async function getBillByCode(code: string) {
   }
 }
 
+export async function createItemForBillCode({
+  billCode,
+  userId, 
+  name,
+  price,
+  notes,
+}: {
+  billCode: string;
+  userId: string;
+  name: string;
+  price: number;
+  notes?: string;
+}) {
+  try {
+    // 1. Find the bill by code
+    const bill = await prisma.bill.findUnique({
+      where: { code: billCode },
+      include: { participants: true },
+    });
+
+    if (!bill) {
+      throw new Error("Bill not found");
+    }
+
+    // 2. Find participant in this bill
+    const participant = bill.participants.find((p) => p.userId === userId);
+    if (!participant) {
+      throw new Error("User is not a participant in this bill");
+    }
+
+    // 3. Create the item
+    const item = await prisma.item.create({
+      data: {
+        name,
+        price,
+        notes,
+        billId: bill.id,
+        orderedByParticipantId: participant.id,
+      },
+      include: {
+        orderedBy: true,
+        bill: true,
+      },
+    });
+
+    return item;
+  } catch (error) {
+    console.error("Error creating item:", error);
+    throw error;
+  }
+}
+
