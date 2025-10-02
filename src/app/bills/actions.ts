@@ -5,6 +5,8 @@ import { CreateBillArgs } from "../components/addButton";
 import { createBill as createBillFromDb } from "@/prisma-db";
 import { addParticipantToBill as addParticipantToBillFromDb } from "@/prisma-db";
 import { leaveBill as leaveBillFromDb } from "@/prisma-db";
+import { createItemForBillCode as createItemForBillCodeFromDb } from "@/prisma-db";
+import { deleteItemFromBill as deleteItemFromDb } from "@/prisma-db";
 
 export type JoinBillArgs = {
   billCode: string;
@@ -39,4 +41,12 @@ export async function addParticipantToBill({ billCode, userId, displayName}: Joi
 
 export async function leaveBill({billCode, userId}: LeaveBillArgs) {
   await leaveBillFromDb({billCode, userId})
+}
+
+export async function createItemForBillCode({billCode, userId, name, price, notes}: CreateItemArgs) {
+  await createItemForBillCodeFromDb({billCode, userId, name, price, notes})
+}
+
+export async function deleteItemFromBill(itemId: number) {
+  await deleteItemFromDb(itemId);
 }

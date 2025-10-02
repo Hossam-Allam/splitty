@@ -265,3 +265,14 @@ export async function createItemForBillCode({
   }
 }
 
+export async function deleteItemFromBill(itemId: number) {
+  try {
+    const deletedItem = await prisma.item.delete({
+      where: { id: itemId },
+    });
+    return deletedItem;
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    throw error;
+  }
+}
