@@ -11,6 +11,7 @@ export default async function Bill({
 }) {
   const code = (await params).code;
   const bill = await getBillByCode(code);
+  console.log(bill?.total);
   const user = await currentUser();
 
   if (!bill) return <h1>No bill found</h1>;

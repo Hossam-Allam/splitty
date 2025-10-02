@@ -6,6 +6,7 @@ export type CreateBillArgs = {
   title: string;
   createdBy: string;
   displayName: string;
+  total: number;
 };
 
 export const AddButton = ({
@@ -19,11 +20,12 @@ export const AddButton = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [total, setTotal] = useState<number | "">("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    createFunction({ title, createdBy, displayName });
+    if (total === "" || isNaN(total)) return;
+    createFunction({ title, createdBy, displayName, total });
 
     setIsOpen(false);
     setTitle("");
@@ -51,6 +53,18 @@ export const AddButton = ({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Bill title"
+                className="w-full p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                required
+              />
+
+              <input
+                type="number"
+                value={total}
+                onChange={(e) =>
+                  setTotal(e.target.value === "" ? "" : Number(e.target.value))
+                }
+                placeholder="Total"
+                step="0.01"
                 className="w-full p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 required
               />

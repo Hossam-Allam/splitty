@@ -73,10 +73,12 @@ export async function createBill({
   title,
   createdBy,
   displayName,
+  total,
 }: {
   title: string;
   createdBy: string; // Clerk userId
-  displayName: string; 
+  displayName: string;
+  total: number 
 }) {
   try {
     // Generate a short unique code (6 chars)
@@ -87,6 +89,7 @@ export async function createBill({
         title,
         createdBy,
         code: joinCode,
+        total,
         participants: {
           create: {
             userId: createdBy,

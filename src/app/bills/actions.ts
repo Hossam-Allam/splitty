@@ -31,8 +31,8 @@ export async function deleteBill(id: number) {
   await deleteBillFromDb(id);
 }
 
-export async function createBill({ title, createdBy, displayName }: CreateBillArgs) {
-  await createBillFromDb({ title, createdBy, displayName });
+export async function createBill({ title, createdBy, displayName, total }: CreateBillArgs) {
+  await createBillFromDb({ title, createdBy, displayName, total });
 }
 
 export async function addParticipantToBill({ billCode, userId, displayName}: JoinBillArgs) {
