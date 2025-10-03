@@ -17,5 +17,9 @@ Splitty is a web application designed to simplify bill splitting among groups of
 - **TypeScript** – Type safety and better developer experience
 - **Prisma** – ORM for interacting with the database
 - **PostgreSQL** – Database for storing bills, participants, and items
-- **Clerk** – Authentication and user management
+- **Clerk** – Authentication and user management (I'm aware its in dev mode, I don't have a custom domain)
 - **Tailwind CSS** – Styling and responsive design
+
+## What's Next?
+
+- **Real-Time updates** - Having real time updates for users on the same bill.
