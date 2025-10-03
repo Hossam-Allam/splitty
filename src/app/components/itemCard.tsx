@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { deleteItemFromBill } from "../bills/actions";
+import { useRouter } from "next/navigation";
+
 export type ItemCardProps = {
   id: number;
   name: string;
@@ -22,11 +24,13 @@ export const ItemCard = ({
   displayName,
 }: ItemCardProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
 
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
       await deleteItemFromBill(id);
+      router.refresh();
     } catch (error) {
       console.error("Failed to delete item:", error);
     }

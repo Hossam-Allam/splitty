@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { CreateItemArgs } from "../bills/actions";
+import { useRouter } from "next/navigation";
 
 export const AddItemButton = ({
   billCode,
@@ -15,19 +16,22 @@ export const AddItemButton = ({
   const [name, setName] = useState("");
   const [price, setPrice] = useState<number | "">("");
   const [notes, setNotes] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!name || price === "") return;
 
-    createFunction({
+    await createFunction({
       billCode,
       userId,
       name,
       price: Number(price),
       notes: notes || undefined,
     });
+
+    router.refresh();
 
     setIsOpen(false);
     setName("");

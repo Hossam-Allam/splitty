@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export type CreateBillArgs = {
   title: string;
@@ -21,12 +22,13 @@ export const AddButton = ({
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [total, setTotal] = useState<number | "">("");
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (total === "" || isNaN(total)) return;
-    createFunction({ title, createdBy, displayName, total });
-
+    await createFunction({ title, createdBy, displayName, total });
+    router.refresh();
     setIsOpen(false);
     setTitle("");
   };
