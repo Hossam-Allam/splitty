@@ -3,7 +3,7 @@ import { getBillByCode } from "@/prisma-db";
 
 export async function GET(
   request: Request,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{code: string}> }
 ) {
   const billCode = (await params).code;
   const bill = await getBillByCode(billCode);
