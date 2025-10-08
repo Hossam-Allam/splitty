@@ -4,6 +4,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { createItemForBillCode } from "../actions";
 import { ItemCard } from "@/app/components/itemCard";
 import { BillTotalsCard } from "@/app/components/totalCard";
+import { BillClient } from "@/app/components/billClient";
+
 export default async function Bill({
   params,
 }: {
@@ -23,6 +25,7 @@ export default async function Bill({
 
   return (
     <div className="p-6">
+      <BillClient code={code} />
       <div className="flex flex-row justify-between items-start mb-6">
         <h1 className="page-header">{bill.title}</h1>
         <AddItemButton
