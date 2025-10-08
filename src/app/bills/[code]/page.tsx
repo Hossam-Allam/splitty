@@ -15,6 +15,10 @@ export default async function Bill({
   const user = await currentUser();
   const currentTotal = bill?.items.reduce((sum, item) => sum + item.price, 0);
 
+  const userTotal = bill?.items
+    .filter((item) => item.orderedBy?.userId === user?.id)
+    .reduce((total, item) => total + item.price, 0);
+
   if (!bill) return <h1>No bill found</h1>;
 
   return (
@@ -37,7 +41,7 @@ export default async function Bill({
             price={item.price}
             orderedByUserId={item.orderedBy?.userId ?? "unknown"}
             currentUserId={user?.id ?? ""}
-            displayName={user?.fullName ?? ""}
+            displayName={item.orderedBy?.displayName ?? ""}
           />
         ))}
       </div>
@@ -45,6 +49,7 @@ export default async function Bill({
       <BillTotalsCard
         realTotal={bill.total ?? 0}
         currentTotal={currentTotal ?? 0}
+        userTotal={userTotal ?? 0}
       />
     </div>
   );

@@ -5,11 +5,13 @@ import React from "react";
 type BillTotalsCardProps = {
   realTotal: number;
   currentTotal: number;
+  userTotal: number;
 };
 
 export const BillTotalsCard = ({
   realTotal,
   currentTotal,
+  userTotal,
 }: BillTotalsCardProps) => {
   let currentTotalColor = "text-white";
 
@@ -27,6 +29,10 @@ export const BillTotalsCard = ({
         <div className="flex justify-between">
           <span className="font-semibold">Real Total:</span>
           <span>${realTotal.toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold">Your Total:</span>
+          <span>${userTotal.toFixed(2)}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-semibold">Current Total:</span>
